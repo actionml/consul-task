@@ -1,6 +1,7 @@
 FROM stackfeed/alpine
 
 LABEL vendor=actionml
+ENV USER aml
 
 RUN cd /tmp && \
     apk add --no-cache \
@@ -14,8 +15,13 @@ RUN cd /tmp && \
       \
     curl -sSLo task.tgz https://github.com/go-task/task/releases/download/v1.0.0/task_Linux_x86_64.tar.gz && \
     tar xz -C /usr/bin -f task.tgz && chmod 755 /usr/bin/task && \
-    rm -rf /tmp/*
+    useradd -Um -d /home/$USER $USER && passwd -d $USER && \
+    rm -rf /tmp/* 
 
 # Expose data volumes
 WORKDIR "/config"
 VOLUME ["/config", "/apps"]
+
+ADD entrypoint.sh /
+
+ENTRYPOINT ["/entrypoint.sh"]
