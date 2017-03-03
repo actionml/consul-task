@@ -5,6 +5,8 @@ ENV USER aml
 
 RUN cd /tmp && \
     apk add --no-cache \
+          less \
+          groff \
           python \
           py-pip \
           py2-pip && \
