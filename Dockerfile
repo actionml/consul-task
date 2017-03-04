@@ -5,6 +5,7 @@ ENV USER aml
 
 RUN cd /tmp && \
     apk add --no-cache \
+          openssh-client \
           less \
           groff \
           python \
