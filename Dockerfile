@@ -12,7 +12,6 @@ RUN cd /tmp && \
           less \
           groff \
           python3 \
-          make \
       && \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
@@ -28,7 +27,7 @@ RUN cd /tmp && \
 
 # Expose data volumes
 WORKDIR "/config"
-VOLUME ["/config", "/apps"]
+VOLUME ["/config", "/apps", "/ssh"]
 
 ADD entrypoint.sh /
 
