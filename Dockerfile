@@ -6,12 +6,19 @@ ENV USER aml
 ADD requirements.txt /tmp
 
 RUN cd /tmp && \
+    apk add --no-cache --virtual .build-deps \
+        build-base \
+        python3-dev \
+        libffi-dev \
+        openssl-dev \
+      && \
     apk add --no-cache \
           git \
           openssh-client \
           less \
           groff \
           python3 \
+          libffi \
       && \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
@@ -23,6 +30,7 @@ RUN cd /tmp && \
     chmod 755 /usr/bin/consult && \
       \
     useradd -Um -d /home/$USER $USER && passwd -d $USER && \
+    apk del --no-cache .build-deps && \
     rm -rf /tmp/* 
 
 # Expose data volumes
