@@ -1,2 +1,4 @@
 git+https://github.com/stackfeed/counsel.git
 awscli
+invoke
+spur
